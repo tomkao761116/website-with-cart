@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>購物車 — Aiden's Garden</title>
+  <link rel='icon' href='imgs/ag_favicon.png' type='image/x-icon' sizes="16x16" />
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="fontawesome 5.13.1/css/all.css">
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="css/all.css">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+  <!-- Custom styles for this template -->
+</head>
+
+<body>
+  <div id="app" class="container">
+    <header class="blog-header py-3">
+      <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4">
+          <!-- Search form -->
+          <div class="input-group p-2 w-75">
+            <input class="form-control py-1 border-right-0 border " type="search" placeholder="search"
+              id="search-input">
+            <a href="#" class="input-group-append">
+              <div class="input-group-text bg-transparent text-sensaicha"><i class="fa fa-search"></i></div>
+            </a>
+          </div>
+        </div>
+        <div class="col-4 text-center">
+          <a class="blog-header-logo" href="#"><img src="imgs/aiden's_garden_logo.png" alt="Aiden's Garden"></a>
+        </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+          <a class="btn btn-sm btn-outline-secondary" href="#">Sign in</a>
+          <span data-toggle="tooltip" title="查看購物車"><a href="#" class="text-sensaicha p-2 ml-2 mr-2"><i
+                class="fas fa-shopping-cart"></i></a></span>
+        </div>
+      </div>
+    </header>
+    <div class="nav-scroller py-1 mb-2">
+      <nav class="nav d-flex justify-content-center text-uppercase ">
+        <a class="p-2 text-sensaicha ml-3 mr-3" href="#">abouts</a>
+        <a class="p-2 text-sensaicha ml-3 mr-3" href="#">pruducts</a>
+        <a class="p-2 text-sensaicha ml-3 mr-3" href="#">faq</a>
+        <a class="p-2 text-sensaicha ml-3 mr-3" href="#">contacts</a>
+      </nav>
+    </div>
+
+    <main role="main">
+      <!-- 這邊預計放購物車清單 -->
+      <div class="p-4 p-md-5" style="height:400px;">
+        
+      </div>
+      <hr>
+      <div class="py-5">
+        <div class="container">
+          <!-- 填寫消費者資訊 -->
+          <div id="purchaseInfo" class="row">
+            <validation-observer v-slot = "{invalid}" class="col-md-6">
+              <form @submit.prevent="creatOrder">
+                <!-- 訂購人姓名 -->
+                <div class="form-group">
+                  <validation-provider v-slot="{errors, classes}" rules="required">
+                    <label for="username">訂購人姓名</label>
+                    <input type="text" id="username" class="form-control" v-model="form.name" :class="classes">
+                    <span v-if="errors[0]" class="text-danger">{{errors[0]}}</span>
+                  </validation-provider>
+                </div>
+                <!-- 訂購人信箱 -->
+                <div class="form-group">
+                  <validation-provider v-slot="{errors, classes}" rules="required|email">
+                    <label for="email">訂購人信箱</label>
+                    <input type="email" id="email" class="form-control" v-model="form.email" :class="classes">
+                    <span v-if="errors[0]" class="text-danger">{{errors[0]}}</span>
+                  </validation-provider>
+                </div>
+                <!-- 訂購人電話 -->
+                <div class="form-group">
+                  <validation-provider  v-slot="{ errors, classes }" rules="required|min:8|max:10">
+                    <label for="phone">訂購人電話</label>
+                    <input id="phone" v-model="form.tel" type="tel" class="form-control" :class="classes">
+                    <span v-if="errors[0]" class="text-danger">{{ errors[0] }}</span>
+                  </validation-provider>
+                </div>
+                <!-- 訂購地址 -->
+                <div class="form-group">
+                  <validation-provider v-slot="{ errors, classes }" rules="required">
+                    <label for="address">地址</label>
+                    <input id="address" v-model="form.address" type="text" class="form-control" :class="classes">
+                    <span v-if="errors[0]" class="text-danger">{{ errors[0] }}</span>
+                  </validation-provider>
+                </div>
+                <!-- 付款方式 -->
+                <div class="form-group">
+                  <label for="payment">付款方式</label>
+                  <select id="payment" v-model="form.payment" class="form-control" required>
+                    <option value="" selected disabled>
+                      請選擇付款方式
+                    </option>
+                    <option value="WebATM">
+                      WebATM
+                    </option>
+                    <option value="ATM">
+                      ATM轉帳付款
+                    </option>
+                    <option value="CVS">
+                      超商取貨付款
+                    </option>
+                    <option value="Barcode">
+                      Barcode
+                    </option>
+                    <option value="Credit">
+                      信用卡
+                    </option>
+                    <option value="ApplePay">
+                      ApplePay
+                    </option>
+                    <option value="GooglePay">
+                      GooglePay
+                    </option>
+                  </select>
+                </div>
+                <!-- 備註 -->
+                <div class="form-group">
+                  <label for="message">備註</label>
+                  <textarea id="message" v-model="form.message" class="form-control" cols="30" rows="3">
+                </textarea>
+                </div>
+                <div class="text-right">
+                  <button type="submit" class="btn btn-info" :disabled="invalid">
+                    送出表單
+                  </button>
+                </div>
+              </form>
+            </validation-observer>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+  <footer class="my-footer">
+    <p class="text-sensaicha">本網站僅供教學練習使用，並無商業用途</p>
+    <p class="text-sensaicha">Copyright © 2020 Aiden's Garden. Some Rights Reserved.</p>
+    <p class="text-sensaicha">All photos are from <a href="https://unsplash.com/">unsplash.com</a></p>
+  </footer>
+
+  <!-- javascripts -->
+  <script src="js/jquery-3.5.1.slim.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="fontawesome 5.13.1/js/all.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.3.0/vee-validate.full.min.js"></script>
+  <script type="module" src="js/all.js"></script>
+
+</body>
+
+</html>
