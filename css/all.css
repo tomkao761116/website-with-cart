@@ -1,0 +1,40 @@
+
+.jumbotron-image {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-image: url(../imgs/main_image.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: .3rem
+}
+
+.text-sensaicha {
+    color:#4D5139 ;
+}
+
+a.text-sensaicha:hover {
+    color: #89916B;
+    text-decoration: underline
+}
+
+.orignal-price {
+    text-decoration:line-through;
+}
+
+
+
+/*
+ * Footer
+ */
+.my-footer {
+    padding: 2.5rem 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
+}
+
+.my-footer p:last-child {
+    margin-bottom: 0;
+}
